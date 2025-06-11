@@ -1,8 +1,8 @@
 [submodule "polygeist"]
 	path = polygeist
-	url = https://github.com/EPFL-LAP/Polygeist.git
+	url = https://github.com/schilkp/Polygeist.git
 	branch = main
-  shallow = true
+    shallow = true
 
 [submodule "visual-dataflow/godot-cpp"]
 	path = visual-dataflow/godot-cpp
