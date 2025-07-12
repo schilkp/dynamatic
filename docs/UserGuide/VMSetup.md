@@ -4,7 +4,8 @@ We provide a virtual machine (VM) which contains a pre-built/ready-to-use versio
 
 This VM was originally set-up for the [*Dynamatic Reloaded tutorial* given at the FPGA'24 conference](https://www.isfpga.org/past/fpga2024/workshops-tutorials/#t7) in Monterey, California. You can use it to simply follow the tutorial (available in the [repository's documentation](Tutorials/Introduction/Introduction.md)) or as a starting point to use/modify Dynamatic in general.
 
-## Running the VM
+> [!NOTE]
+> Note that Dynamatic's repository on the VM does not track the `main` branch but a branch specifically made for the tutorial. If you would like to build Dynamatic's latest version from the VM, you can checkout the `main` branch and use the [regular build instructions](./BasicBuildGuide.md) from the top-level README to build the project's latest version.
 
 Once you have downloaded the .zip archive from the link above, you can extract it and inside you will see two files The .vbox file contains all the settings required to run the VM, while the .vdi file contains the virtual hard drive. To load the VM, open VirtualBox and click on *Machine - Add*, then select the file *DynamaticVM.vbox* when prompted. 
 
@@ -24,3 +25,5 @@ If everything went well, after launching the image you should see Ubuntu's splas
   - You can change the default keyboard layout (English US) by clicking on the **Keyboard** tab on the left. Next, click on the + button under **Input Sources**, then, in the pop-menu that appears, click on the three vertical dots icon, scroll down the list, and click **Other**. Find your keyboard layout in the list and double-click it to add it to the list of input sources. Finally, drag your newly added keyboard layout above **English (US)** to start using it.
 - When running commands for Dynamatic from the terminal, make sure you first `cd` to the `dynamatic` subfolder.
   - Since the user is also called *dynamatic*, `pwd` should display `/home/dynamatic/dynamatic` when you are in the correct folder.
+  - Since the user is also called *dynamatic*, `pwd` should display `/home/dynamatic/dynamatic` when you are in the correct folder.
+  - You can run `./update-dynamatic.sh` from the dynamatic subfolder to pull latest changes from the repository and automatically rebuild the project.

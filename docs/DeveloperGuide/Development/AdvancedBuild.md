@@ -1,10 +1,9 @@
 # Advanced Build Instructions
 
-This document contains advanced build instructions targeted at users who would like to modify Dynamatic's source code and/or use the interactive dataflow circuit visualizer. For basic setup instructions, see the [top-level README file](../README.md#building-the-project).
+This document contains advanced build instructions targeted at users who would like to modify Dynamatic's source code and/or use the interactive dataflow circuit visualizer. For basic setup instructions, see the [basic build guide](../UserGuide/BasicBuildGuide.md).
 
 > [!NOTE]
 > In the instructions below, we assume that you have already cloned Dynamatic and its submodules and that the project is rooted in a folder called `dynamatic`. Whenever provided shell commands contain `cd dynamatic`, it refers to this directory created during cloning. Adjust paths as needed depending on your current working directory.  
-
 
 ## Gurobi
 
@@ -64,7 +63,7 @@ These are very similar to upstream polygeist and the version of LLVM used by pol
 
 ## Building
 
-This section provides some insights into our custom build script, [build.sh](../build.sh), located in the repository's top-level folder. The script recognizes a number of flags and arguments that allow you to customize the build process to your needs. The `--help` flag makes the script print the entire list of available flags/arguments and exit.
+This section provides some insights into our custom build script, [`build.sh`](https://github.com/EPFL-LAP/dynamatic/blob/main/build.sh), located in the repository's top-level folder. The script recognizes a number of flags and arguments that allow you to customize the build process to your needs. The `--help` flag makes the script print the entire list of available flags/arguments and exit.
 
 > [!WARNING]
 > The script should always be ran from Dynamatic's top-level folder.
@@ -133,7 +132,7 @@ To reduce the build script's execution time when re-building the project regular
 The repository contains an optionally built tool that allows to visualize the dataflow circuits produced by Dynamatic and interact with them as they are simulated on test inputs. This is a very useful tool for debugging and for better understanding dataflow circuits in general. It is built on top of the open-source [Godot game engine](https://godotengine.org/) and of its [C++ bindings](https://github.com/godotengine/godot-cpp), the latter of which Dynamatic depends on as a submodule rooted at `visual-dataflow/godot-cpp` (relative to Dynamatic's top-level folder). To build and/or modify this tool (which is only supported on Linux at this point), one must therefore download the Godot engine (a single executable file) from the Internet manually.
 
 > [!WARNING]
-> Note that Godot's C++ bindings only work for a specific major/minor version of the engine. This version is specified in the `branch` field of the submodule's declaration in [`.gitmodules`](../.gitmodules). The version of the engine you download must therefore match the bindings currently tracked by Dynamatic. [You can download any version of Godot from the official archive](https://godotengine.org/download/archive/).
+> Note that Godot's C++ bindings only work for a specific major/minor version of the engine. This version is specified in the `branch` field of the submodule's declaration in [`.gitmodules`](https://github.com/EPFL-LAP/dynamatic/blob/main/.gitmodules). The version of the engine you download must therefore match the bindings currently tracked by Dynamatic. [You can download any version of Godot from the official archive](https://godotengine.org/download/archive/).
 
 Due to these extra dependencies, building this tool is opt-in, meaning that by default it is not built along the rest of Dynamatic. This also means that the `CMakeLists.txt` file in `visual-dataflow/` is meant to be configured independently from the one located one folder above it i.e., at the project's root. As a consequence, intermediate build files for the tool are dumped into the `visual-dataflow/build/` folder instead of the top-level `build/` folder.  
 

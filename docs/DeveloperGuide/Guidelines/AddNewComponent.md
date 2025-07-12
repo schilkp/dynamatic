@@ -12,7 +12,7 @@ It does **not** cover when a new component *should* be created or how it *should
 
 ## 1. Define a Handshake Op
 
-The first step is to define a Handshake *op*. Note that in MLIR, an op refers to a specific, concrete operation (see [Op vs Operation](https://github.com/EPFL-LAP/dynamatic/blob/main/docs/Tutorials/MLIRPrimer.md#op-vs-operation) for more details).
+The first step is to define a Handshake *op*. Note that in MLIR, an op refers to a specific, concrete operation (see [Op vs Operation](../MLIRPrimer.md#op-vs-operation) for more details).
 
 Handshake ops are defined using the [LLVM TableGen format](https://llvm.org/docs/TableGen/index.html), in either `include/dynamatic/Dialect/Handshake/HandshakeOps.td` or `HandshakeArithOps.td`.
 

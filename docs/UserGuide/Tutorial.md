@@ -1,11 +1,18 @@
-# Using Dynamatic
+# Introduction to Dynamatic
 
-This tutorial will walk you through the compilation of a simple kernel function written in C into an equivalent VHDL design, the functional verification of the resulting dataflow circuit using Modelsim, and the latter's visualization using our custom interactive dataflow visualizer. The tutorial assumes basic knowledge of dataflow circuits but does not require any insight into MLIR or compilers in general.
+This tutorial is meant as the entry-point for new Dynamatic users and will guide you through your first interactions with the compiler and its surrounding toolchain. Following it requires that you have Dynamatic built locally on your machine, either [from source](./BasicBuildGuide.md) or using our [custom virtual machine](./VMSetup.md).
+
+> [!WARNING]
+> Note that the virtual machine does not contain an MILP solver; when using frontend scripts, you will have to provide the `--simple-buffers` flag to the `compile` command to instruct it to not rely on an MILP solver for buffer placement). Unfortunately, this will affect the circuits you generate as part of the exercises and you may therefore obtain different results from what the tutorial describes.
+
+
+
+It will walk you through the compilation of a simple kernel function written in C into an equivalent VHDL design, the functional verification of the resulting dataflow circuit using Modelsim, and the latter's visualization using our custom interactive dataflow visualizer. The tutorial assumes basic knowledge of dataflow circuits but does not require any insight into MLIR or compilers in general.
 
 Below are some technical details about this tutorial.
-- All resources are located in the repository's [`tutorials/Introduction/Ch1`](../../../tutorials/Introduction/Ch1) folder.
+- All resources are located in the repository's [`tutorials/Introduction/Ch1`](https://github.com/EPFL-LAP/dynamatic/tree/main/tutorials/Introduction/Ch1) folder.
 - All relative paths mentionned throughout the tutorial are assumed to start at Dynamatic's top-level folder.
-- We assume that you have already built Dynamatic from source using the instructions in the top-level [README](../../../README.md) or that you have access to a Docker container that has a pre-built version of Dynamatic . 
+- We assume that you have already built Dynamatic from source using the [provided instructions](./BasicBuildGuide.md) or that you have access to a Docker container that has a pre-built version of Dynamatic.
 
 This tutorial is divided into the following sections.
 - [1. The source code](#the-source-code) | We take a look at the C kernel function we will transform into a dataflow circuit. 
@@ -65,7 +72,7 @@ dynamatic> set-src tutorials/Introduction/Ch1/loop_multiply.c
 
 The frontend will assume that the C function to transform has the same name as the last component of the argument to `set-src` without the file extension, here `loop_multiply`.
 
-The first step towards generating the VHDL design is *compilation*, during which the C source goes through our MLIR frontend ([Polygeist](https://github.com/llvm/Polygeist)) and then through a pre-defined sequence of transformation and optimization passes that ultimately yield a description of an equivalent dataflow circuit. That description takes the form of a human-readable and machine-parsable IR (Intermediate Representation) within the MLIR framework. In particular, it represents dataflow components using specially-defined IR instructions (in MLIR jargon, [operations](../MLIRPrimer.md#operations)) that are part of the [*Handshake dialect*](../MLIRPrimer.md#dialects). A dialect is simply a collection of logically-connected IR entities like instructions, types, and attributes. MLIR provides so-called standard dialects for common use cases, while allowing external tools (like Dynamatic) to define their own custom dialects to model domain-specific semantics. We inherit part of the infrastructure surrounding the *Handshake* dialect from the [CIRCT project](https://github.com/llvm/circt) (a satellite project of LLVM/MLIR), but have tailored it to our specific use cases.
+The first step towards generating the VHDL design is *compilation*, during which the C source goes through our MLIR frontend ([Polygeist](https://github.com/llvm/Polygeist)) and then through a pre-defined sequence of transformation and optimization passes that ultimately yield a description of an equivalent dataflow circuit. That description takes the form of a human-readable and machine-parsable IR (Intermediate Representation) within the MLIR framework. In particular, it represents dataflow components using specially-defined IR instructions (in MLIR jargon, [operations](../DeveloperGuide/MLIRPrimer.md#operations)) that are part of the [*Handshake dialect*](../DeveloperGuide/MLIRPrimer.md#dialects). A dialect is simply a collection of logically-connected IR entities like instructions, types, and attributes. MLIR provides so-called standard dialects for common use cases, while allowing external tools (like Dynamatic) to define their own custom dialects to model domain-specific semantics. We inherit part of the infrastructure surrounding the *Handshake* dialect from the [CIRCT project](https://github.com/llvm/circt) (a satellite project of LLVM/MLIR), but have tailored it to our specific use cases.
 
 To compile the C function, simply input `compile`. This will call a shell script in the background that will iteratively transform the IR into an optimized dataflow circuit, storing intermediate IR forms to disk at multiple points in the process.
 
@@ -204,3 +211,6 @@ Now that we have gotten familiar with the circuit representation, it is time to 
 ## Conclusion
 
 Congratulations on reaching the end of this tutorial! You now know how to use Dynamatic to compile C kernels into functional dataflow circuits, then visualize these circuits to better understand them and identify potential optimization opportunities. In the [next chapter of this tutorial](ModifyingDynamatic.md), we will identify one such opportunity and write a small transformation pass in C++ to implement our desired optimization, before finally verifying its behavior using the dataflow visualizer.
+
+> [!NOTE]
+> Feel free to have a look at the [modifying Dynamatic tutorial](../DeveloperGuide/Tutorials/ModifyingDynamatic.md) if you want to start learning about Dynamatic's internals.

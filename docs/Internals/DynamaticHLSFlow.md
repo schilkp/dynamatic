@@ -1,8 +1,10 @@
 # Dynamatic's High Level Synthesis Flow
-> Flow script [compile.sh](../tools/dynamatic/scripts/compile.sh)
+
+> [!NOTE]
+> Dyanamatic's is implemented in the flow script, located at `tools/dynamatic/scripts/compile.sh`
 
 ## Diagram of the overall compilation flow
-![HLS Flow Diagram](./Figures/Compilation_flow.svg)
+![HLS Flow Diagram](./figs/Compilation_flow.svg)
 
 ### Stage 1: Source -> Affine level 
 In this stage, we convert source code to affine level mlir dialect with `polygist` and generate the `affine.mlir` file.
@@ -38,4 +40,3 @@ Results are stored in `handshake_buffered.mlir` file.
 
 ### Stage 8: Export
 In this stage, we conduct handshake canonicalization and produce the final export file (`handshake_export.mlir`).
-
